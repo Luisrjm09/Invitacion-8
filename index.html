@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fff0f5">
+<title>Ocho meses contigo ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --pink: #ff4f87;
+    --deep: #a91e55;
+    --ink: #55243a;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", sans-serif;
+    color: var(--ink);
+
+    /* FONDO ANIMADO */
+    background:
+        radial-gradient(ellipse at 15% 20%, #ffe0ec, transparent 40%),
+        radial-gradient(ellipse at 85% 80%, #ffd6e5, transparent 40%),
+        radial-gradient(ellipse at 70% 15%, #fff0c9, transparent 35%),
+        linear-gradient(135deg, #fff8fa, #ffeef4);
+
+    background-size: 200% 200%;
+    animation: backgroundMove 15s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+/* LUCES DIFUMINADAS EN MOVIMIENTO */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 55vmax;
+    height: 55vmax;
+    border-radius: 50%;
+    filter: blur(65px);
+    opacity: .35;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::before {
+    background: #ff83b0;
+    top: -25vmax;
+    left: -25vmax;
+    animation: glowOne 18s ease-in-out infinite alternate;
+}
+
+body::after {
+    background: #ffc5a8;
+    bottom: -25vmax;
+    right: -25vmax;
+    animation: glowTwo 22s ease-in-out infinite alternate;
+}
+
+@keyframes glowOne {
+    from { transform: translate(0,0) scale(.8); }
+    to { transform: translate(45vw,40vh) scale(1.3); }
+}
+
+@keyframes glowTwo {
+    from { transform: translate(0,0) scale(1.2); }
+    to { transform: translate(-40vw,-35vh) scale(.8); }
+}
+
+/* CORAZONES */
+
+#hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart {
+    position: absolute;
+    bottom: -40px;
+    color: #ff6f9f;
+    opacity: 0;
+    animation: floatHeart linear forwards;
+    filter: drop-shadow(0 2px 4px #ffb6cc66);
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(.7);
+        opacity: 0;
+    }
+    10% { opacity: .8; }
+    90% { opacity: .7; }
+    100% {
+        transform: translateY(-115vh) rotate(45deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* TARJETA */
+
+.card {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 470px);
+    padding: 35px 28px;
+    text-align: center;
+    background: rgba(255,255,255,.82);
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 30px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 22px 70px #b84d7430;
+}
+
+.eyebrow {
+    display: inline-block;
+    background: #ffe3ed;
+    color: #c33469;
+    padding: 9px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.big-heart {
+    font-size: 55px;
+    margin: 15px 0;
+    display: inline-block;
+    animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    50% { transform: scale(1.17); }
+}
+
+h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(32px, 8vw, 43px);
+    line-height: 1.1;
+    color: #9d2855;
+    margin-bottom: 15px;
+}
+
+.message {
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.message strong {
+    color: #d83270;
+}
+
+.divider {
+    width: 60px;
+    height: 3px;
+    border-radius: 10px;
+    background: #ff9cba;
+    margin: 22px auto;
+}
+
+.question {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 7px;
+}
+
+.sub {
+    font-size: 13px;
+    color: #a66b82;
+    margin-bottom: 25px;
+}
+
+/* BOTONES */
+
+.buttons {
+    height: 65px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    max-width: 330px;
+    margin: auto;
+}
+
+button {
+    border: none;
+    border-radius: 50px;
+    padding: 14px 23px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    touch-action: manipulation;
+    box-shadow: 0 8px 18px #c34a762c;
+    transition: transform .2s;
+}
+
+#yes {
+    background: linear-gradient(135deg,#ff6c9d,#e83d79);
+    color: white;
+    min-width: 115px;
+}
+
+#no {
+    background: white;
+    color: #b34b72;
+    border: 1px solid #f5c6d7;
+    position: relative;
+    min-width: 105px;
+}
+
+.hint {
+    font-size: 11px;
+    color: #b27c91;
+    margin-top: 17px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* MENSAJE FINAL */
+
+#reveal {
+    animation: appear .6s ease both;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.95);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.reveal-title {
+    font-family: Georgia, serif;
+    font-size: 29px;
+    color: #b52d63;
+    margin: 15px 0;
+}
+
+.reveal-copy {
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.footer {
+    font-size: 11px;
+    color: #c08a9f;
+    margin-top: 25px;
+}
+
+/* IPHONE Y PANTALLAS PEQUEÑAS */
+
+@media (max-width: 390px) {
+    body { padding: 12px; }
+
+    .card {
+        padding: 25px 18px;
+        border-radius: 25px;
+    }
+
+    .message { font-size: 15px; }
+    .question { font-size: 18px; }
+    .buttons { gap: 8px; }
+    button { padding: 13px 19px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<main class="card">
+
+<section id="intro">
+
+    <span class="eyebrow">
+        05 · 11 · 2026 ♡ 8 MESES
+    </span>
+
+    <div class="big-heart">💗</div>
+
+    <h1>
+        Un mes más<br>
+        contigo, mi amor
+    </h1>
+
+    <p class="message">
+        Muchas gracias por estos
+        <strong>8 maravillosos meses</strong>.
+
+        Cada día a tu lado es mi favorito.
+        Gracias por tantas risas, abrazos
+        y momentos bonitos.
+
+        <br><br>
+
+        <strong>Te amo muchísimo. ❤️</strong>
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="question">
+        ¿Aceptas ir a cenar hoy a Spikes? 👀
+    </p>
+
+    <p class="sub">
+        Tengo una cita pendiente con la mujer más bonita. ✨
+    </p>
+
+    <div class="buttons" id="buttonArea">
+        <button id="yes">¡Sí, obvio! 💘</button>
+        <button id="no">No 🙈</button>
+    </div>
+
+    <p class="hint" id="hint">
+        Pista: una de estas opciones es un poquito traviesa…
+    </p>
+
+</section>
+
+<section id="reveal" class="hidden" aria-live="polite">
+
+    <div class="big-heart">🥰</div>
+
+    <div class="eyebrow">
+        ¡SABÍA QUE DIRÍAS QUE SÍ!
+    </div>
+
+    <h2 class="reveal-title">
+        ¡Aaaah, ¿a poco creíste que era opcional?! 😂
+    </h2>
+
+    <p class="reveal-copy">
+        ¡Te engañé! La cena en
+        <strong>Spikes</strong> va sí o sí. ❤️
+
+        <br><br>
+
+        Gracias por estos 8 meses tan maravillosos.
+
+        Y que vengan muchísimos más de aventuras,
+        amor y cenas juntos.
+
+        <br><br>
+
+        <strong>Te amo, mi esposa hermosa. 💞</strong>
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="question">
+        Hoy la cita es contigo. 🥂
+    </p>
+
+</section>
+
+<div class="footer">
+    Hecho con mucho amor, solo para ti ♡
+</div>
+
+</main>
+
+<script>
+
+// CORAZONES FLOTANTES
+
+const hearts = document.getElementById("hearts");
+
+const symbols = ["♥", "♡", "💕", "💗", "❤"];
+
+function createHeart() {
+
+    const heart = document.createElement("span");
+
+    heart.className = "heart";
+
+    heart.textContent =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+    heart.style.left = Math.random() * 100 + "%";
+
+    heart.style.fontSize =
+        (10 + Math.random() * 18) + "px";
+
+    const duration = 5 + Math.random() * 6;
+
+    heart.style.animationDuration = duration + "s";
+
+    hearts.appendChild(heart);
+
+    setTimeout(() => heart.remove(), duration * 1000);
+}
+
+// Corazones iniciales
+
+for (let i = 0; i < 25; i++) {
+    setTimeout(createHeart, i * 150);
+}
+
+// Corazones constantes
+
+setInterval(createHeart, 350);
+
+
+// BOTONES TRAVIESOS
+
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const area = document.getElementById("buttonArea");
+const hint = document.getElementById("hint");
+
+let noDodges = 0;
+let yesDodges = 0;
+let yesReady = false;
+
+// Mover botón
+
+function relocate(button) {
+
+    button.style.position = "absolute";
+
+    const maxX = Math.max(
+        0,
+        area.clientWidth - button.offsetWidth
+    );
+
+    button.style.left =
+        Math.random() * maxX + "px";
+
+    button.style.top =
+        (Math.random() * 18 - 9) + "px";
+
+    button.style.transform =
+        "rotate(" + (Math.random() * 14 - 7) + "deg)";
+}
+
+// BOTÓN NO: SIEMPRE ESCAPA
+
+function moveNo() {
+
+    noDodges++;
+
+    relocate(no);
+
+    hint.textContent =
+        "El botón No parece que no quiere cooperar… 😂";
+}
+
+no.addEventListener("pointerenter", moveNo);
+
+no.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveNo();
+}, {passive: false});
+
+no.addEventListener("click", function(e) {
+    e.preventDefault();
+    moveNo();
+});
+
+
+// BOTÓN SÍ: ESCAPA CINCO VECES
+
+function moveYes() {
+
+    if (yesReady) return;
+
+    yesDodges++;
+
+    relocate(yes);
+
+    const messages = [
+        "¿Ya casi lo alcanzas? 👀",
+        "¡Uy, se escapó! 😂",
+        "Un intentito más, amor 💗",
+        "¡Esta es la última travesura! 🤭",
+        "¡Listo! Ahora sí puedes decir que SÍ. 💘"
+    ];
+
+    hint.textContent = messages[yesDodges - 1];
+
+    if (yesDodges >= 5) {
+
+        yesReady = true;
+
+        yes.style.position = "relative";
+        yes.style.left = "auto";
+        yes.style.top = "auto";
+        yes.style.transform = "none";
+    }
+}
+
+yes.addEventListener("pointerenter", moveYes);
+
+yes.addEventListener("touchstart", function(e) {
+
+    if (!yesReady) {
+        e.preventDefault();
+        moveYes();
+    }
+
+}, {passive: false});
+
+
+// SORPRESA FINAL
+
+yes.addEventListener("click", function(e) {
+
+    if (!yesReady) {
+        e.preventDefault();
+        moveYes();
+        return;
+    }
+
+    document.getElementById("intro").classList.add("hidden");
+
+    document.getElementById("reveal").classList.remove("hidden");
+
+    // Lluvia de corazones al aceptar
+
+    for (let i = 0; i < 40; i++) {
+        setTimeout(createHeart, i * 45);
+    }
+
+});
+
+</script>
+
+</body>
+</html>
