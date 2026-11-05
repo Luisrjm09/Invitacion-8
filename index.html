@@ -315,30 +315,30 @@ button {
 
 <main class="card">
 
+
 <section id="intro">
 
     <span class="eyebrow">
-        05 · 11 · 2026 ♡ 8 MESES
+        05 · 03 · 2026 ♡ 8 MESES ♡ 05 · 11 · 2026
     </span>
 
     <div class="big-heart">💗</div>
 
     <h1>
-        Un mes más<br>
-        contigo, mi amor
+        8 meses<br>
+        siendo esposos
     </h1>
 
     <p class="message">
-        Muchas gracias por estos
-        <strong>8 maravillosos meses</strong>.
-
-        Cada día a tu lado es mi favorito.
-        Gracias por tantas risas, abrazos
-        y momentos bonitos.
+        Muchas gracias por 8 meses siendo esposos,
+        mi amor. No cabe duda que he disfrutado
+        cada día de estar a tu lado, aunque a veces
+        se te suelte una tuerca Lupitaa 🤭
 
         <br><br>
 
-        <strong>Te amo muchísimo. ❤️</strong>
+        Gracias por cada día que paso a tu lado,
+        guapa. <strong>Te amo muchísimo. ❤️</strong>
     </p>
 
     <div class="divider"></div>
@@ -348,11 +348,11 @@ button {
     </p>
 
     <p class="sub">
-        Tengo una cita pendiente con la mujer más bonita. ✨
+        Tengo una cita pendiente contigo, mi amor.
     </p>
 
     <div class="buttons" id="buttonArea">
-        <button id="yes">¡Sí, obvio! 💘</button>
+        <button id="yes">Sí 💘</button>
         <button id="no">No 🙈</button>
     </div>
 
@@ -361,6 +361,7 @@ button {
     </p>
 
 </section>
+
 
 <section id="reveal" class="hidden" aria-live="polite">
 
@@ -371,32 +372,34 @@ button {
     </div>
 
     <h2 class="reveal-title">
-        ¡Aaaah, ¿a poco creíste que era opcional?! 😂
+        ¿A poco creíste que era broma, Lupitaa? 
     </h2>
 
     <p class="reveal-copy">
-        ¡Te engañé! La cena en
-        <strong>Spikes</strong> va sí o sí. ❤️
+        ¡JAJAJA! ❤️
 
         <br><br>
 
-        Gracias por estos 8 meses tan maravillosos.
-
-        Y que vengan muchísimos más de aventuras,
-        amor y cenas juntos.
+        La cena se tiene que hacer sí o sí.
+        ¡Ya está decidido! 👀
 
         <br><br>
 
-        <strong>Te amo, mi esposa hermosa. 💞</strong>
+        Muchas gracias por estos 8 meses
+        siendo esposos. No cambiaría por nada
+        todo lo que hemos vivido juntos.
+
+        <br><br>
+
+        <strong>
+            Te amo, mi esposa hermosa. 💞
+        </strong>
     </p>
 
     <div class="divider"></div>
 
-    <p class="question">
-        Hoy la cita es contigo. 🥂
-    </p>
-
 </section>
+
 
 <div class="footer">
     Hecho con mucho amor, solo para ti ♡
@@ -525,6 +528,7 @@ no.addEventListener("click", function(e) {
 
 // BOTÓN SÍ: CINCO ESCAPADAS
 
+
 function moveYes() {
 
     if (yesReady) return;
@@ -536,12 +540,30 @@ function moveYes() {
 
     const messages = [
         "¡Uy! ¡Casi lo atrapas! 👀",
-        "¡Sigue intentando, mi amor! 😂",
-        "¡Ya casi! 💗",
-        "¡Una última travesura! 🤭",
-        "¡Ahora sí! Ya puedes aceptar 💘"
+        "JAJAJA, ¡inténtalo otra vez! 😂",
+        "¡No te rindas, Lupita! 💗",
+        "¡Ese botón tiene vida propia! 💨",
+        "Ya casi, mi amor... 🤭",
+        "¡Una más! JAJAJA ❤️",
+        "¡Bueno, ya! Ahora sí puedes aceptar. 💘"
     ];
 
+    hint.textContent = messages[yesDodges - 1];
+
+    if (yesDodges >= 7) {
+
+        yesReady = true;
+
+        yes.style.position = "fixed";
+        yes.style.left = "50%";
+        yes.style.top = "50%";
+        yes.style.transform = "translate(-50%, -50%)";
+        yes.style.zIndex = "1000";
+
+        hint.textContent =
+            "¡Ahora sí, Lupita! Ya no se escapa. 💕";
+    }
+}
     hint.textContent = messages[yesDodges - 1];
 
     if (yesDodges >= 5) {
