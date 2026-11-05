@@ -409,7 +409,9 @@ button {
 
 <script>
 
+// ==========================================
 // CORAZONES FLOTANTES
+// ==========================================
 
 const hearts = document.getElementById("hearts");
 
@@ -439,18 +441,17 @@ function createHeart() {
 }
 
 // Corazones iniciales
-
 for (let i = 0; i < 25; i++) {
     setTimeout(createHeart, i * 150);
 }
 
 // Corazones constantes
-
 setInterval(createHeart, 350);
 
 
-
-// BOTONES TRAVIESOS - MOVIMIENTO POR TODA LA PANTALLA
+// ==========================================
+// BOTONES TRAVIESOS
+// ==========================================
 
 const yes = document.getElementById("yes");
 const no = document.getElementById("no");
@@ -458,16 +459,21 @@ const hint = document.getElementById("hint");
 
 let yesDodges = 0;
 let yesReady = false;
-let noDodges = 0;
 
-// Los botones se posicionan respecto a toda la ventana
+
+// ==========================================
+// MOVIMIENTO POR TODA LA PANTALLA
+// ==========================================
+
 function prepareButton(button) {
+
     button.style.position = "fixed";
     button.style.zIndex = "999";
-    button.style.transition = "left .22s ease, top .22s ease, transform .22s ease";
+
+    button.style.transition =
+        "left .22s ease, top .22s ease, transform .22s ease";
 }
 
-// Mover un botón a cualquier zona visible
 function moveAcrossScreen(button) {
 
     const margin = 15;
@@ -492,13 +498,15 @@ function moveAcrossScreen(button) {
         "rotate(" + (Math.random() * 20 - 10) + "deg)";
 }
 
+
+// ==========================================
 // BOTÓN NO: SIEMPRE ESCAPA
+// ==========================================
 
 function moveNo() {
 
-    noDodges++;
-
     prepareButton(no);
+
     moveAcrossScreen(no);
 
     const messages = [
@@ -526,8 +534,9 @@ no.addEventListener("click", function(e) {
 });
 
 
-// BOTÓN SÍ: CINCO ESCAPADAS
-
+// ==========================================
+// BOTÓN SÍ: SIETE ESCAPADAS
+// ==========================================
 
 function moveYes() {
 
@@ -536,6 +545,7 @@ function moveYes() {
     yesDodges++;
 
     prepareButton(yes);
+
     moveAcrossScreen(yes);
 
     const messages = [
@@ -557,38 +567,37 @@ function moveYes() {
         yes.style.position = "fixed";
         yes.style.left = "50%";
         yes.style.top = "50%";
-        yes.style.transform = "translate(-50%, -50%)";
+
+        yes.style.transform =
+            "translate(-50%, -50%)";
+
         yes.style.zIndex = "1000";
 
         hint.textContent =
             "¡Ahora sí, Lupita! Ya no se escapa. 💕";
     }
 }
-    
-        // Dejar el botón en una posición visible
-        yes.style.position = "fixed";
-        yes.style.left = "50%";
-        yes.style.top = "50%";
-        yes.style.transform = "translate(-50%, -50%)";
-        yes.style.zIndex = "1000";
-
-        hint.textContent =
-            "¡Listo! Ahora sí puedes decir que SÍ. 💘";
-    }
-}
 
 yes.addEventListener("pointerenter", function() {
+
     if (!yesReady) moveYes();
+
 });
 
 yes.addEventListener("touchstart", function(e) {
+
     if (!yesReady) {
         e.preventDefault();
         moveYes();
     }
+
 }, { passive: false });
 
-// Reubicar el botón si cambia la orientación del teléfono
+
+// ==========================================
+// CAMBIO DE ORIENTACIÓN DEL IPHONE
+// ==========================================
+
 window.addEventListener("resize", function() {
 
     if (!yesReady && yes.style.position === "fixed") {
@@ -598,9 +607,13 @@ window.addEventListener("resize", function() {
     if (no.style.position === "fixed") {
         moveAcrossScreen(no);
     }
+
 });
 
+
+// ==========================================
 // SORPRESA FINAL
+// ==========================================
 
 yes.addEventListener("click", function(e) {
 
@@ -614,7 +627,7 @@ yes.addEventListener("click", function(e) {
 
     document.getElementById("reveal").classList.remove("hidden");
 
-    // Lluvia de corazones al aceptar
+    // Lluvia especial de corazones
 
     for (let i = 0; i < 40; i++) {
         setTimeout(createHeart, i * 45);
