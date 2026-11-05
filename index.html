@@ -446,36 +446,47 @@ for (let i = 0; i < 25; i++) {
 setInterval(createHeart, 350);
 
 
-// BOTONES TRAVIESOS
+
+// BOTONES TRAVIESOS - MOVIMIENTO POR TODA LA PANTALLA
 
 const yes = document.getElementById("yes");
 const no = document.getElementById("no");
-const area = document.getElementById("buttonArea");
 const hint = document.getElementById("hint");
 
-let noDodges = 0;
 let yesDodges = 0;
 let yesReady = false;
+let noDodges = 0;
 
-// Mover botón
+// Los botones se posicionan respecto a toda la ventana
+function prepareButton(button) {
+    button.style.position = "fixed";
+    button.style.zIndex = "999";
+    button.style.transition = "left .22s ease, top .22s ease, transform .22s ease";
+}
 
-function relocate(button) {
+// Mover un botón a cualquier zona visible
+function moveAcrossScreen(button) {
 
-    button.style.position = "absolute";
+    const margin = 15;
 
     const maxX = Math.max(
-        0,
-        area.clientWidth - button.offsetWidth
+        margin,
+        window.innerWidth - button.offsetWidth - margin
     );
 
-    button.style.left =
-        Math.random() * maxX + "px";
+    const maxY = Math.max(
+        margin,
+        window.innerHeight - button.offsetHeight - margin
+    );
 
-    button.style.top =
-        (Math.random() * 18 - 9) + "px";
+    const x = margin + Math.random() * (maxX - margin);
+    const y = margin + Math.random() * (maxY - margin);
+
+    button.style.left = x + "px";
+    button.style.top = y + "px";
 
     button.style.transform =
-        "rotate(" + (Math.random() * 14 - 7) + "deg)";
+        "rotate(" + (Math.random() * 20 - 10) + "deg)";
 }
 
 // BOTÓN NO: SIEMPRE ESCAPA
@@ -484,10 +495,19 @@ function moveNo() {
 
     noDodges++;
 
-    relocate(no);
+    prepareButton(no);
+    moveAcrossScreen(no);
+
+    const messages = [
+        "¡Ese botón no quiere que digas que no! 😂",
+        "¡Se escapó otra vez! 💨",
+        "No hay manera de rechazar esta cita 😏",
+        "¡Intenta atraparlo! ❤️",
+        "JAJAJA, ese botón es imposible 😂"
+    ];
 
     hint.textContent =
-        "El botón No parece que no quiere cooperar… 😂";
+        messages[Math.floor(Math.random() * messages.length)];
 }
 
 no.addEventListener("pointerenter", moveNo);
@@ -495,7 +515,7 @@ no.addEventListener("pointerenter", moveNo);
 no.addEventListener("touchstart", function(e) {
     e.preventDefault();
     moveNo();
-}, {passive: false});
+}, { passive: false });
 
 no.addEventListener("click", function(e) {
     e.preventDefault();
@@ -503,7 +523,7 @@ no.addEventListener("click", function(e) {
 });
 
 
-// BOTÓN SÍ: ESCAPA CINCO VECES
+// BOTÓN SÍ: CINCO ESCAPADAS
 
 function moveYes() {
 
@@ -511,14 +531,15 @@ function moveYes() {
 
     yesDodges++;
 
-    relocate(yes);
+    prepareButton(yes);
+    moveAcrossScreen(yes);
 
     const messages = [
-        "¿Ya casi lo alcanzas? 👀",
-        "¡Uy, se escapó! 😂",
-        "Un intentito más, amor 💗",
-        "¡Esta es la última travesura! 🤭",
-        "¡Listo! Ahora sí puedes decir que SÍ. 💘"
+        "¡Uy! ¡Casi lo atrapas! 👀",
+        "¡Sigue intentando, mi amor! 😂",
+        "¡Ya casi! 💗",
+        "¡Una última travesura! 🤭",
+        "¡Ahora sí! Ya puedes aceptar 💘"
     ];
 
     hint.textContent = messages[yesDodges - 1];
@@ -527,24 +548,40 @@ function moveYes() {
 
         yesReady = true;
 
-        yes.style.position = "relative";
-        yes.style.left = "auto";
-        yes.style.top = "auto";
-        yes.style.transform = "none";
+        // Dejar el botón en una posición visible
+        yes.style.position = "fixed";
+        yes.style.left = "50%";
+        yes.style.top = "50%";
+        yes.style.transform = "translate(-50%, -50%)";
+        yes.style.zIndex = "1000";
+
+        hint.textContent =
+            "¡Listo! Ahora sí puedes decir que SÍ. 💘";
     }
 }
 
-yes.addEventListener("pointerenter", moveYes);
+yes.addEventListener("pointerenter", function() {
+    if (!yesReady) moveYes();
+});
 
 yes.addEventListener("touchstart", function(e) {
-
     if (!yesReady) {
         e.preventDefault();
         moveYes();
     }
+}, { passive: false });
 
-}, {passive: false});
+// Reubicar el botón si cambia la orientación del teléfono
+window.addEventListener("resize", function() {
 
+    if (!yesReady && yes.style.position === "fixed") {
+        moveAcrossScreen(yes);
+    }
+
+    if (no.style.position === "fixed") {
+        moveAcrossScreen(no);
+    }
+});
 
 // SORPRESA FINAL
 
